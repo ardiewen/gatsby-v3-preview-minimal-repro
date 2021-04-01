@@ -1,12 +1,32 @@
+require("dotenv").config({
+  path: `.env${process.env.NODE_ENV && `.${process.env.NODE_ENV}`}`,
+});
+
 module.exports = {
   siteMetadata: {
     title: "Gatsby Wordpress Typescript Boilerplate",
   },
   plugins: [
     {
-      resolve: "gatsby-source-wordpress",
+      resolve: `gatsby-source-wordpress`,
       options: {
-        url: "http://colloqui.local/graphql",
+        url: `${process.env.GATSBY_GRAPHQL_URL}`,
+        auth: {
+          htaccess: {
+            username: process.env.STAGING_LOGIN
+              ? `${process.env.STAGING_LOGIN}`
+              : null,
+            password: process.env.STAGING_PASS
+              ? `${process.env.STAGING_PASS}`
+              : null,
+          },
+        },
+        verbose: true,
+        schema: {
+          perPage: 10,
+          requestConcurrency: 5,
+          previewRequestConcurrency: 2,
+        },
       },
     },
     "gatsby-plugin-styled-components",
