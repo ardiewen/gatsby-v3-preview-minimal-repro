@@ -11,16 +11,6 @@ module.exports = {
       resolve: `gatsby-source-wordpress`,
       options: {
         url: `${process.env.GATSBY_GRAPHQL_URL}`,
-        auth: {
-          htaccess: {
-            username: process.env.STAGING_LOGIN
-              ? `${process.env.STAGING_LOGIN}`
-              : null,
-            password: process.env.STAGING_PASS
-              ? `${process.env.STAGING_PASS}`
-              : null,
-          },
-        },
         verbose: true,
         schema: {
           perPage: 10,
